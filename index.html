@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prachi Joshi — Product Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#080A0E;--bg2:#0D1117;--bg3:#131720;
+  --surface:#161B26;--surface2:#1C2333;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.13);
+  --text:#E8EAF0;--text2:#8A919E;--text3:#525A67;
+  --accent:#7C9EFF;--accent2:#A78BFA;
+  --green:#4ADE80;--amber:#FBBF24;--coral:#FB7185;--teal:#2DD4BF;
+  --fd:'Playfair Display',Georgia,serif;
+  --fb:'DM Sans',sans-serif;
+  --fm:'JetBrains Mono',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--fb);font-size:16px;line-height:1.65;overflow-x:hidden;cursor:none}
+.cursor{width:10px;height:10px;background:var(--accent);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transition:transform .15s ease;transform:translate(-50%,-50%)}
+.cursor-ring{width:34px;height:34px;border:1px solid rgba(124,158,255,.35);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transition:width .3s,height .3s;transform:translate(-50%,-50%)}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:20px 60px;background:rgba(8,10,14,.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:padding .3s}
+.nav-logo{font-family:var(--fd);font-size:18px;letter-spacing:-.02em;color:var(--text);text-decoration:none}.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;gap:36px}
+.nav-links a{font-size:13px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;color:var(--text2);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{font-size:13px;font-weight:500;padding:8px 20px;border:1px solid var(--border2);border-radius:40px;color:var(--text);text-decoration:none;transition:all .2s}
+.nav-cta:hover{border-color:var(--accent);color:var(--accent)}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:140px 60px 80px;position:relative;overflow:hidden}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(124,158,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(124,158,255,.04) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 60% at 50% 50%,black 40%,transparent 100%)}
+.hero-glow{position:absolute;width:600px;height:400px;background:radial-gradient(ellipse,rgba(124,158,255,.11) 0%,transparent 70%);top:20%;left:-100px;pointer-events:none}
+.hero-glow2{position:absolute;width:400px;height:300px;background:radial-gradient(ellipse,rgba(167,139,250,.07) 0%,transparent 70%);top:40%;right:0;pointer-events:none}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;font-family:var(--fm);font-size:11px;letter-spacing:.08em;color:var(--accent);border:1px solid rgba(124,158,255,.25);border-radius:40px;padding:6px 14px;margin-bottom:36px;width:fit-content;animation:fsu .6s ease both}
+.hero-badge::before{content:'';width:6px;height:6px;background:var(--green);border-radius:50%;box-shadow:0 0 8px var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero h1{font-family:var(--fd);font-size:clamp(42px,6vw,80px);font-weight:700;line-height:1.08;letter-spacing:-.03em;max-width:820px;margin-bottom:28px;animation:fsu .7s .1s ease both}
+.hero h1 em{font-style:italic;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:18px;color:var(--text2);max-width:560px;line-height:1.6;margin-bottom:48px;font-weight:300;animation:fsu .7s .2s ease both}
+.hero-actions{display:flex;gap:16px;align-items:center;animation:fsu .7s .3s ease both}
+.btn-p{display:inline-flex;align-items:center;gap:10px;padding:14px 28px;background:var(--accent);color:#080A0E;font-weight:500;font-size:14px;border-radius:40px;text-decoration:none;transition:all .25s}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(124,158,255,.35)}
+.btn-p svg{transition:transform .2s}.btn-p:hover svg{transform:translateX(3px)}
+.btn-g{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;color:var(--text2);font-size:14px;text-decoration:none;border-radius:40px;border:1px solid var(--border2);transition:all .25s}
+.btn-g:hover{color:var(--text);background:var(--surface)}
+.hero-meta{display:flex;gap:48px;margin-top:80px;animation:fsu .7s .4s ease both;flex-wrap:wrap}
+.hm-num{font-family:var(--fd);font-size:32px;font-weight:600;line-height:1;margin-bottom:4px}
+.hm-lab{font-size:12px;color:var(--text3);text-transform:uppercase;letter-spacing:.08em}
+@keyframes fsu{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+section{padding:120px 60px}
+.sl{font-family:var(--fm);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.st{font-family:var(--fd);font-size:clamp(32px,4vw,52px);font-weight:700;letter-spacing:-.025em;line-height:1.1;margin-bottom:20px}
+.ss{font-size:16px;color:var(--text2);max-width:560px;line-height:1.7;font-weight:300}
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border2),transparent);margin:0 60px}
+.sh{margin-bottom:60px}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.work-section{background:var(--bg2)}
+.cs-card{border:1px solid var(--border);border-radius:24px;overflow:hidden;background:var(--surface);transition:border-color .3s}
+.cs-header{padding:48px 52px;border-bottom:1px solid var(--border)}
+.cs-tag{display:inline-flex;font-family:var(--fm);font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:4px;margin-bottom:16px;width:fit-content;background:rgba(74,222,128,.1);color:var(--green)}
+.cs-title{font-family:var(--fd);font-size:clamp(26px,3vw,38px);font-weight:700;letter-spacing:-.025em;line-height:1.15;margin-bottom:12px}
+.cs-desc{font-size:15px;color:var(--text2);max-width:700px;line-height:1.65}
+.cs-body{padding:52px;display:flex;flex-direction:column;gap:64px}
+.problem-block{background:var(--bg);border:1px solid var(--border);border-radius:16px;padding:32px 36px;position:relative;overflow:hidden}
+.problem-block::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--coral),var(--amber));border-radius:3px}
+.pb-label{font-family:var(--fm);font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--coral);margin-bottom:10px}
+.pb-text{font-family:var(--fd);font-size:22px;font-weight:600;letter-spacing:-.01em;line-height:1.35}
+.insights-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.ic{background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:24px;transition:transform .2s,border-color .2s}
+.ic:hover{transform:translateY(-3px);border-color:var(--border2)}
+.ic-icon{font-size:20px;margin-bottom:12px}
+.ic-label{font-family:var(--fm);font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin-bottom:8px}
+.ic-text{font-size:14px;color:var(--text2);line-height:1.55}
+.ic-quote{font-family:var(--fd);font-size:14px;font-style:italic;color:var(--text);margin-top:12px;line-height:1.4;border-left:2px solid rgba(124,158,255,.3);padding-left:12px}
+.journey-map{background:var(--bg);border:1px solid var(--border);border-radius:16px;padding:32px;overflow-x:auto}
+.journey-stages{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:16px;min-width:540px}
+.js-stage{text-align:center;padding:10px 8px;border-radius:8px;background:var(--surface);font-size:11px;font-weight:500;color:var(--text2)}
+.journey-row{display:grid;grid-template-columns:72px repeat(5,1fr);gap:8px;margin-bottom:8px;align-items:center;min-width:620px}
+.jr-label{font-family:var(--fm);font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em}
+.jr-cell{background:var(--surface);border-radius:6px;padding:8px 10px;font-size:12px;color:var(--text2);line-height:1.35;min-height:40px;display:flex;align-items:center}
+.jr-cell.pain{background:rgba(251,113,133,.08);color:var(--coral)}
+.jr-cell.ok{background:rgba(124,158,255,.06);color:var(--accent)}
+.jr-cell.good{background:rgba(74,222,128,.07);color:var(--green)}
+.pf{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;border-radius:12px;overflow:hidden}
+.pf-step{background:var(--bg);border:1px solid var(--border);padding:18px 14px;text-align:center}
+.pf-step.done{background:var(--surface2);border-color:rgba(124,158,255,.3)}
+.pf-num{font-family:var(--fm);font-size:10px;color:var(--text3);margin-bottom:6px;letter-spacing:.08em}
+.pf-name{font-size:13px;font-weight:500;color:var(--text2)}
+.pf-step.done .pf-name{color:var(--accent)}
+
+/* UI SCREENS */
+.screens-intro{font-size:15px;color:var(--text2);line-height:1.65;margin-bottom:32px;max-width:600px}
+.phone-row{display:flex;gap:24px;overflow-x:auto;padding-bottom:16px}
+.phone-wrap{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:12px}
+.phone-label{font-family:var(--fm);font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--text3)}
+.phone{width:224px;height:448px;background:#0F1319;border-radius:38px;border:2px solid rgba(255,255,255,.12);position:relative;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.08)}
+.phone::before{content:'';position:absolute;top:14px;left:50%;transform:translateX(-50%);width:56px;height:5px;background:rgba(255,255,255,.15);border-radius:10px;z-index:10}
+.pscreen{width:100%;height:100%;overflow:hidden}
+
+/* SCREEN 1 */
+.s1{width:100%;height:100%;background:linear-gradient(180deg,#0E1520 0%,#0B1628 100%);padding:30px 14px 14px;display:flex;flex-direction:column}
+.s1-topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.s1-title{font-size:13px;font-weight:500;color:#E8EAF0}
+.s1-loc{font-size:9px;color:#6B7280;margin-top:1px}
+.s1-filter{width:26px;height:26px;background:#161B26;border-radius:8px;border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:11px}
+.map-box{width:100%;height:174px;background:linear-gradient(135deg,#0D1B2A,#0A1628);border-radius:12px;position:relative;overflow:hidden;margin-bottom:10px;flex-shrink:0}
+.mg{position:absolute;inset:0;background-image:linear-gradient(rgba(124,158,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(124,158,255,.05) 1px,transparent 1px);background-size:20px 20px}
+.mr-h{position:absolute;height:2px;background:rgba(255,255,255,.07);left:0;right:0}
+.mr-v{position:absolute;width:2px;background:rgba(255,255,255,.07);top:0;bottom:0}
+.pin{position:absolute;display:flex;flex-direction:column;align-items:center}
+.pd{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;border:2px solid rgba(0,0,0,.5)}
+.pd.g{background:#4ADE80;color:#052e0f}
+.pd.a{background:#FBBF24;color:#3b2100}
+.pd.r{background:#FB7185;color:#3b0010}
+.pt{width:2px;height:5px;background:rgba(255,255,255,.25);margin-top:-1px}
+.mu{position:absolute;width:10px;height:10px;background:var(--accent);border-radius:50%;border:2px solid white;box-shadow:0 0 0 6px rgba(124,158,255,.18);top:50%;left:48%;transform:translate(-50%,-50%)}
+.legend{position:absolute;bottom:7px;right:7px;background:rgba(13,17,23,.88);border-radius:6px;padding:5px 7px;display:flex;flex-direction:column;gap:3px}
+.lrow{display:flex;align-items:center;gap:4px;font-size:7px;color:#6B7280}
+.ldot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.s1-pill{background:rgba(124,158,255,.1);border:1px solid rgba(124,158,255,.2);border-radius:20px;padding:4px 10px;display:inline-flex;align-items:center;gap:5px;font-size:9px;color:var(--accent);margin-bottom:10px;width:fit-content}
+.s1-card{background:#161B26;border-radius:10px;padding:10px 12px;border:1px solid rgba(255,255,255,.08)}
+.s1cr{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px}
+.s1cn{font-size:10px;font-weight:500;color:#E8EAF0}
+.s1av{display:flex;align-items:center;gap:3px}
+.avd{width:5px;height:5px;border-radius:50%}
+.s1cs{font-size:9px;color:#6B7280;margin-bottom:6px}
+.s1ct{display:flex;gap:4px}
+.s1tg{font-size:8px;padding:2px 6px;border-radius:4px;border:1px solid rgba(255,255,255,.09);color:#6B7280}
+
+/* SCREEN 2 */
+.s2{width:100%;height:100%;background:#0D1117;padding:30px 14px 14px;display:flex;flex-direction:column;gap:8px}
+.s2-back{font-size:9px;color:var(--accent);margin-bottom:2px}
+.s2-name{font-size:13px;font-weight:600;color:#E8EAF0}
+.s2-sub{font-size:9px;color:#6B7280}
+.stat-ban{border-radius:10px;padding:9px 11px;display:flex;align-items:center;gap:7px}
+.sb-g{background:rgba(74,222,128,.09);border:1px solid rgba(74,222,128,.2)}
+.sb-ico{font-size:13px}
+.sb-t{font-size:10px;font-weight:500;color:var(--green)}
+.sb-s{font-size:9px;color:#6B7280;margin-top:1px}
+.trust-row{display:flex;gap:5px}
+.tc{background:#161B26;border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:6px 8px;flex:1;text-align:center}
+.tc-v{font-size:11px;font-weight:500;color:#E8EAF0}
+.tc-l{font-size:8px;color:#525A67;margin-top:1px}
+.slots-lbl{font-size:9px;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.06em;color:#525A67;margin-bottom:5px}
+.slots{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+.slot{border-radius:6px;padding:5px 3px;text-align:center;font-size:9px;font-weight:500;border:1px solid}
+.slot.av{background:rgba(74,222,128,.07);border-color:rgba(74,222,128,.22);color:var(--green)}
+.slot.tk{background:rgba(251,113,133,.07);border-color:rgba(251,113,133,.18);color:var(--coral)}
+.slot.sl{background:rgba(124,158,255,.14);border-color:var(--accent);color:var(--accent)}
+.s2-btn{background:var(--accent);border-radius:10px;padding:9px;text-align:center;font-size:11px;font-weight:500;color:#080A0E;margin-top:auto}
+
+/* SCREEN 3 */
+.s3{width:100%;height:100%;background:#0D1117;padding:30px 14px 14px;display:flex;flex-direction:column}
+.conf-top{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px}
+.conf-ico{width:50px;height:50px;background:rgba(74,222,128,.1);border:2px solid rgba(74,222,128,.28);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px}
+.conf-title{font-size:13px;font-weight:600;color:#E8EAF0;text-align:center}
+.conf-sub{font-size:9px;color:#6B7280;text-align:center;line-height:1.5}
+.conf-card{background:#161B26;border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:9px 11px;width:100%}
+.ccr{display:flex;justify-content:space-between;padding:3px 0;font-size:9px;border-bottom:1px solid rgba(255,255,255,.04)}
+.ccr:last-child{border-bottom:none}
+.cck{color:#6B7280}.ccv{color:#E8EAF0;font-weight:500}
+.nxt-lbl{font-size:9px;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.06em;color:#525A67;margin-top:10px;margin-bottom:5px}
+.nxt-steps{display:flex;flex-direction:column;gap:4px}
+.ns{display:flex;align-items:center;gap:5px;font-size:9px;color:#6B7280}
+.nn{width:14px;height:14px;border-radius:50%;border:1px solid rgba(124,158,255,.3);display:flex;align-items:center;justify-content:center;font-size:7px;color:var(--accent);flex-shrink:0}
+
+/* SOLUTIONS */
+.sol-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.sol-card{background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:24px 28px;transition:border-color .2s}
+.sol-card:hover{border-color:rgba(124,158,255,.25)}
+.sol-ico{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;font-size:16px}
+.sib{background:rgba(124,158,255,.1)}.sig{background:rgba(74,222,128,.1)}.sia{background:rgba(251,191,36,.1)}.sit{background:rgba(45,212,191,.1)}
+.sol-t{font-size:14px;font-weight:500;margin-bottom:7px}
+.sol-d{font-size:13px;color:var(--text2);line-height:1.55}
+
+/* LEARNINGS */
+.learn-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.learn-card{background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:24px}
+.lc-num{font-family:var(--fd);font-size:36px;font-weight:700;color:var(--border2);margin-bottom:8px;line-height:1}
+.lc-t{font-size:14px;font-weight:500;color:var(--text);margin-bottom:6px}
+.lc-d{font-size:13px;color:var(--text2);line-height:1.55}
+
+/* PROCESS */
+.process-section{background:var(--bg)}
+.proc-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--border);border-radius:16px;overflow:hidden;margin-top:60px}
+.proc-step{background:var(--bg2);padding:36px 24px;transition:background .2s}
+.proc-step:hover{background:var(--surface)}
+.proc-num{font-family:var(--fm);font-size:11px;color:var(--text3);letter-spacing:.08em;margin-bottom:18px}
+.proc-icon{font-size:22px;margin-bottom:14px}
+.proc-name{font-size:15px;font-weight:500;color:var(--text);margin-bottom:10px}
+.proc-desc{font-size:13px;color:var(--text2);line-height:1.55}
+.proc-arts{margin-top:12px;display:flex;flex-wrap:wrap;gap:5px}
+.at{font-size:10px;font-family:var(--fm);letter-spacing:.04em;padding:3px 7px;border-radius:4px;border:1px solid var(--border2);color:var(--text3)}
+
+/* ABOUT */
+.about-section{background:var(--bg2)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;margin-top:60px}
+.about-text p{font-size:16px;color:var(--text2);line-height:1.75;margin-bottom:20px;font-weight:300}
+.about-text strong{color:var(--text);font-weight:500}
+.about-quote{font-family:var(--fd);font-size:21px;font-style:italic;color:var(--text);line-height:1.4;border-left:2px solid var(--accent);padding-left:24px;margin:28px 0}
+.about-facts{display:flex;flex-direction:column;gap:14px}
+.about-fact{display:flex;align-items:flex-start;gap:13px;padding:16px 20px;background:var(--surface);border:1px solid var(--border);border-radius:14px;transition:border-color .2s}
+.about-fact:hover{border-color:var(--border2)}
+.af-icon{font-size:18px;width:36px;flex-shrink:0;text-align:center;margin-top:2px}
+.af-text{font-size:14px;color:var(--text2);line-height:1.5}
+.af-text strong{color:var(--text);font-weight:500;display:block;margin-bottom:2px}
+
+/* SKILLS */
+.skills-section{background:var(--bg)}
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:60px}
+.skill-group{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:26px;transition:all .2s}
+.skill-group:hover{border-color:var(--border2);transform:translateY(-2px)}
+.sg-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.sg-dot{width:7px;height:7px;border-radius:50%}
+.skill-tags{display:flex;flex-wrap:wrap;gap:7px}
+.skill-tag{font-size:11px;padding:4px 11px;border-radius:6px;border:1px solid var(--border);color:var(--text2);background:var(--bg);font-family:var(--fm);letter-spacing:.02em}
+
+/* BEHANCE SECTION */
+.beh-section{background:var(--bg2);text-align:center}
+.beh-inner{max-width:560px;margin:0 auto}
+.beh-badge{display:inline-flex;align-items:center;justify-content:center;width:56px;height:56px;background:rgba(5,114,206,.12);border:1px solid rgba(5,114,206,.22);border-radius:16px;font-size:22px;margin:0 auto 24px}
+.beh-title{font-family:var(--fd);font-size:clamp(28px,4vw,44px);font-weight:700;letter-spacing:-.02em;line-height:1.15;margin-bottom:14px}
+.beh-sub{font-size:15px;color:var(--text2);margin-bottom:36px;font-weight:300;line-height:1.6}
+.btn-beh{display:inline-flex;align-items:center;gap:10px;padding:14px 32px;background:linear-gradient(135deg,#0572CE,#0461B1);color:white;font-weight:500;font-size:14px;border-radius:40px;text-decoration:none;transition:all .25s}
+.btn-beh:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(5,114,206,.35)}
+
+/* CONTACT */
+.contact-section{background:var(--bg);text-align:center}
+.contact-inner{max-width:600px;margin:0 auto}
+.contact-title{font-family:var(--fd);font-size:clamp(34px,5vw,58px);font-weight:700;letter-spacing:-.03em;line-height:1.1;margin-bottom:18px}
+.contact-sub{font-size:16px;color:var(--text2);margin-bottom:44px;font-weight:300}
+.contact-links{display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
+.cl{display:inline-flex;align-items:center;gap:9px;padding:13px 26px;border-radius:40px;font-size:14px;font-weight:500;text-decoration:none;transition:all .25s}
+.cl-email{background:var(--accent);color:#080A0E}
+.cl-email:hover{box-shadow:0 12px 36px rgba(124,158,255,.3);transform:translateY(-2px)}
+.cl-li{border:1px solid var(--border2);color:var(--text)}
+.cl-li:hover{border-color:var(--accent);color:var(--accent)}
+.cl-beh{border:1px solid rgba(5,114,206,.35);color:#4A9EE0}
+.cl-beh:hover{border-color:#0572CE;box-shadow:0 8px 24px rgba(5,114,206,.2);transform:translateY(-2px)}
+footer{padding:28px 60px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border)}
+footer p{font-size:13px;color:var(--text3)}
+.fl{display:flex;gap:24px}
+.fl a{font-size:13px;color:var(--text3);text-decoration:none;transition:color .2s}
+.fl a:hover{color:var(--text2)}
+
+@media(max-width:900px){
+  nav{padding:16px 24px}
+  section{padding:80px 24px}
+  .hero{padding:120px 24px 60px}
+  .divider{margin:0 24px}
+  .cs-header,.cs-body{padding:28px}
+  .insights-grid,.sol-grid,.learn-grid,.skills-grid{grid-template-columns:1fr 1fr}
+  .proc-steps{grid-template-columns:1fr 1fr}
+  .about-grid{grid-template-columns:1fr;gap:40px}
+  .pf{grid-template-columns:repeat(3,1fr)}
+  .phone-row{gap:14px}
+  .phone{width:188px;height:376px}
+  footer{flex-direction:column;gap:14px;text-align:center}
+  .hero-meta{gap:24px}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav id="nav">
+  <a href="#" class="nav-logo">Prachi<span>.</span></a>
+  <div class="nav-links">
+    <a href="#work">Work</a>
+    <a href="#process">Process</a>
+    <a href="#about">About</a>
+  </div>
+  <a href="#contact" class="nav-cta">Let's talk</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-badge">Open to opportunities · 2025</div>
+  <h1>Designing <em>intuitive</em> experiences that solve real problems</h1>
+  <p class="hero-sub">I'm a Product Designer who leads with UX thinking — turning ambiguous user problems into clear, human-centered solutions. Not just beautiful screens.</p>
+  <div class="hero-actions">
+    <a href="#work" class="btn-p">View Case Study <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <a href="https://www.behance.net/joshiprachi200" target="_blank" class="btn-g">Behance Portfolio</a>
+  </div>
+  <div class="hero-meta">
+    <div><div class="hm-num">25+</div><div class="hm-lab">Users Interviewed</div></div>
+    <div><div class="hm-num">3</div><div class="hm-lab">Projects Designed</div></div>
+    <div><div class="hm-num">MCA</div><div class="hm-lab">Tech Background</div></div>
+    <div><div class="hm-num">C-DAC</div><div class="hm-lab">AI Healthcare Intern</div></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- WORK -->
+<section class="work-section" id="work">
+  <div class="sh reveal">
+    <div class="sl">// 01 — Case Study</div>
+    <h2 class="st">ChargeEasy</h2>
+    <p class="ss">EV Charging Experience Redesign — from trust issues and booking confusion to a clear, confident user journey.</p>
+  </div>
+
+  <div class="cs-card reveal">
+    <div class="cs-header">
+      <div class="cs-tag">EV Charging · Mobile App · UX Research</div>
+      <h3 class="cs-title">Redesigning Trust in EV Charging Discovery &amp; Booking</h3>
+      <p class="cs-desc">EV drivers couldn't trust whether a charger would actually be available when they arrived — causing anxiety, wasted trips, and booking confusion. I validated this through research with 25 EV users and redesigned the full experience from discovery to payment.</p>
+    </div>
+
+    <div class="cs-body">
+
+      <!-- PROBLEM -->
+      <div class="reveal">
+        <div class="sl">The Problem</div>
+        <div class="problem-block">
+          <div class="pb-label">Core user frustration</div>
+          <div class="pb-text">"I never know if the charger I'm heading to is actually free — and when I get there, the booking system is so confusing I just give up."</div>
+        </div>
+      </div>
+
+      <!-- RESEARCH -->
+      <div class="reveal">
+        <div class="sl">Research · 25 EV Users Interviewed</div>
+        <div class="insights-grid">
+          <div class="ic">
+            <div class="ic-icon">⚡</div>
+            <div class="ic-label">Pain Point 1 — Availability</div>
+            <div class="ic-text">No real-time visibility on charger status before arriving. Users had to physically drive to the station to find out if it was occupied.</div>
+            <div class="ic-quote">"I've wasted 20 minutes driving to a charger that was already taken. There's no way to know in advance."</div>
+          </div>
+          <div class="ic">
+            <div class="ic-icon">🗓</div>
+            <div class="ic-label">Pain Point 2 — Booking</div>
+            <div class="ic-text">Time-slot selection was deeply ambiguous. Users weren't sure if their booking was confirmed, leading to double-booking and frustration.</div>
+            <div class="ic-quote">"Did I book it? It didn't show me a confirmation. I ended up booking the same slot twice."</div>
+          </div>
+          <div class="ic">
+            <div class="ic-icon">🔍</div>
+            <div class="ic-label">Pain Point 3 — Discovery</div>
+            <div class="ic-text">Finding a nearby charger required navigating 4+ screens before any useful availability information was visible to the user.</div>
+            <div class="ic-quote">"By the time I find the charger info I actually need, I've tapped through five different screens."</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- JOURNEY MAP -->
+      <div class="reveal">
+        <div class="sl">User Journey Map — Emotional State Before Redesign</div>
+        <div class="journey-map">
+          <div class="journey-stages">
+            <div class="js-stage">Discover</div>
+            <div class="js-stage">Navigate</div>
+            <div class="js-stage">Arrive</div>
+            <div class="js-stage">Book</div>
+            <div class="js-stage">Charge</div>
+          </div>
+          <div class="journey-row">
+            <span class="jr-label">Action</span>
+            <div class="jr-cell">Searches nearby chargers on app</div>
+            <div class="jr-cell">Drives to chosen station</div>
+            <div class="jr-cell">Checks availability on-site</div>
+            <div class="jr-cell">Selects time slot &amp; books</div>
+            <div class="jr-cell">Connects &amp; charges car</div>
+          </div>
+          <div class="journey-row">
+            <span class="jr-label">Feeling</span>
+            <div class="jr-cell ok">Hopeful</div>
+            <div class="jr-cell pain">Anxious</div>
+            <div class="jr-cell pain">Frustrated</div>
+            <div class="jr-cell pain">Confused</div>
+            <div class="jr-cell good">Relieved</div>
+          </div>
+          <div class="journey-row">
+            <span class="jr-label">Problem</span>
+            <div class="jr-cell pain">No status info visible</div>
+            <div class="jr-cell pain">Range anxiety builds</div>
+            <div class="jr-cell pain">Charger often occupied</div>
+            <div class="jr-cell pain">No clear confirmation</div>
+            <div class="jr-cell good">—</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROCESS -->
+      <div class="reveal">
+        <div class="sl">Design Process</div>
+        <div class="pf">
+          <div class="pf-step done"><div class="pf-num">01</div><div class="pf-name">Research</div></div>
+          <div class="pf-step done"><div class="pf-num">02</div><div class="pf-name">Define</div></div>
+          <div class="pf-step done"><div class="pf-num">03</div><div class="pf-name">Wireframe</div></div>
+          <div class="pf-step done"><div class="pf-num">04</div><div class="pf-name">Prototype</div></div>
+          <div class="pf-step done"><div class="pf-num">05</div><div class="pf-name">Usability Test</div></div>
+        </div>
+      </div>
+
+      <!-- UI SCREENS -->
+      <div class="reveal">
+        <div class="sl">UI Screens — Final Design</div>
+        <p class="screens-intro">Three screens that directly address the three pain points discovered in research. Each went through multiple wireframe rounds before this final state.</p>
+        <div class="phone-row">
+
+          <!-- SCREEN 1: DISCOVER -->
+          <div class="phone-wrap">
+            <div class="phone">
+              <div class="pscreen">
+                <div class="s1">
+                  <div class="s1-topbar">
+                    <div>
+                      <div class="s1-title">Find Chargers</div>
+                      <div class="s1-loc">📍 Koramangala, Bengaluru</div>
+                    </div>
+                    <div class="s1-filter">⚙</div>
+                  </div>
+                  <div class="map-box">
+                    <div class="mg"></div>
+                    <div class="mr-h" style="top:38%"></div>
+                    <div class="mr-h" style="top:68%"></div>
+                    <div class="mr-v" style="left:34%"></div>
+                    <div class="mr-v" style="left:65%"></div>
+                    <div class="pin" style="top:24%;left:26%"><div class="pd g">3</div><div class="pt"></div></div>
+                    <div class="pin" style="top:16%;left:57%"><div class="pd a">1</div><div class="pt"></div></div>
+                    <div class="pin" style="top:50%;left:70%"><div class="pd r">0</div><div class="pt"></div></div>
+                    <div class="pin" style="top:62%;left:20%"><div class="pd g">2</div><div class="pt"></div></div>
+                    <div class="mu"></div>
+                    <div class="legend">
+                      <div class="lrow"><div class="ldot" style="background:#4ADE80"></div>Available</div>
+                      <div class="lrow"><div class="ldot" style="background:#FBBF24"></div>Busy</div>
+                      <div class="lrow"><div class="ldot" style="background:#FB7185"></div>Full</div>
+                    </div>
+                  </div>
+                  <div class="s1-pill"><span style="width:5px;height:5px;background:var(--green);border-radius:50%"></span>5 nearby · 3 available now</div>
+                  <div class="s1-card">
+                    <div class="s1cr">
+                      <div class="s1cn">EV Hub — 91Springboard</div>
+                      <div class="s1av"><div class="avd" style="background:#4ADE80"></div><span style="font-size:9px;color:var(--green)">3 free</span></div>
+                    </div>
+                    <div class="s1cs">0.4 km · Fast Charge 50kW · CCS2</div>
+                    <div class="s1ct">
+                      <div class="s1tg">CCS2</div>
+                      <div class="s1tg">CHAdeMO</div>
+                      <div class="s1tg" style="color:var(--accent);border-color:rgba(124,158,255,.2)">Book →</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="phone-label">01 — Discover</div>
+          </div>
+
+          <!-- SCREEN 2: BOOKING -->
+          <div class="phone-wrap">
+            <div class="phone">
+              <div class="pscreen">
+                <div class="s2">
+                  <div class="s2-back">← Back to map</div>
+                  <div class="s2-name">91Springboard EV Hub</div>
+                  <div class="s2-sub">Koramangala 4th Block · ₹12/kWh · Fast Charge</div>
+                  <div class="stat-ban sb-g">
+                    <div class="sb-ico">✅</div>
+                    <div><div class="sb-t">3 of 4 chargers available</div><div class="sb-s">Live status · updated every 60s</div></div>
+                  </div>
+                  <div class="trust-row">
+                    <div class="tc"><div class="tc-v">4.6★</div><div class="tc-l">Rating</div></div>
+                    <div class="tc"><div class="tc-v">98%</div><div class="tc-l">Reliable</div></div>
+                    <div class="tc"><div class="tc-v">312</div><div class="tc-l">Sessions</div></div>
+                  </div>
+                  <div class="slots-lbl">Select slot — Today</div>
+                  <div class="slots">
+                    <div class="slot tk">9:00</div>
+                    <div class="slot tk">9:30</div>
+                    <div class="slot av">10:00</div>
+                    <div class="slot sl">10:30 ✓</div>
+                    <div class="slot av">11:00</div>
+                    <div class="slot av">11:30</div>
+                    <div class="slot av">12:00</div>
+                    <div class="slot tk">12:30</div>
+                  </div>
+                  <div class="s2-btn">Confirm — 10:30 AM →</div>
+                </div>
+              </div>
+            </div>
+            <div class="phone-label">02 — Book</div>
+          </div>
+
+          <!-- SCREEN 3: CONFIRMED -->
+          <div class="phone-wrap">
+            <div class="phone">
+              <div class="pscreen">
+                <div class="s3">
+                  <div class="conf-top">
+                    <div class="conf-ico">✓</div>
+                    <div class="conf-title">Booking Confirmed!</div>
+                    <div class="conf-sub">Your slot is reserved.<br>Charger held until your arrival.</div>
+                    <div class="conf-card">
+                      <div class="ccr"><span class="cck">Station</span><span class="ccv">91Springboard</span></div>
+                      <div class="ccr"><span class="cck">Date</span><span class="ccv">Today, Apr 13</span></div>
+                      <div class="ccr"><span class="cck">Time</span><span class="ccv">10:30 AM</span></div>
+                      <div class="ccr"><span class="cck">Type</span><span class="ccv">CCS2 · 50kW</span></div>
+                      <div class="ccr"><span class="cck">ID</span><span class="ccv" style="color:var(--accent)">#CE-7842</span></div>
+                    </div>
+                  </div>
+                  <div class="nxt-lbl">What happens next</div>
+                  <div class="nxt-steps">
+                    <div class="ns"><div class="nn">1</div>Navigate to station (tap for directions)</div>
+                    <div class="ns"><div class="nn">2</div>Scan QR on charger to activate</div>
+                    <div class="ns"><div class="nn">3</div>Payment auto-deducted on completion</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="phone-label">03 — Confirmed</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- DESIGN DECISIONS -->
+      <div class="reveal">
+        <div class="sl">Key Design Decisions</div>
+        <div class="sol-grid">
+          <div class="sol-card">
+            <div class="sol-ico sig">🟢</div>
+            <div class="sol-t">Color + Icon Status System</div>
+            <div class="sol-d">Green / Amber / Red pins on the map itself — users see charger status before tapping anything. Eliminates the "drive and find out" problem entirely.</div>
+          </div>
+          <div class="sol-card">
+            <div class="sol-ico sib">📅</div>
+            <div class="sol-t">Visual Slot Grid</div>
+            <div class="sol-d">Replaced confusing text-based time selection with a scannable visual grid. Available, taken, and selected states are colour-coded — no ambiguity.</div>
+          </div>
+          <div class="sol-card">
+            <div class="sol-ico sia">🛡</div>
+            <div class="sol-t">Trust Indicators</div>
+            <div class="sol-d">Added reliability score, rating, and session count to each station card. Users can make confident decisions before spending time navigating there.</div>
+          </div>
+          <div class="sol-card">
+            <div class="sol-ico sit">📋</div>
+            <div class="sol-t">"What Happens Next" State</div>
+            <div class="sol-d">Booking confirmation now shows 3 clear next steps — replacing a blank "success" screen that left users unsure whether anything had actually worked.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LEARNINGS -->
+      <div class="reveal">
+        <div class="sl">What I Learned</div>
+        <div class="learn-grid">
+          <div class="learn-card">
+            <div class="lc-num">01</div>
+            <div class="lc-t">Research reveals the real problem</div>
+            <div class="lc-d">I assumed the issue was "bad UI". After 25 interviews, the real problem was trust — users didn't believe the system. That realization changed my entire design direction.</div>
+          </div>
+          <div class="learn-card">
+            <div class="lc-num">02</div>
+            <div class="lc-t">Confirmation matters as much as the action</div>
+            <div class="lc-d">The booking flow technically worked — but users didn't feel it worked. Explicit confirmation + "what's next" resolved anxiety without any backend change.</div>
+          </div>
+          <div class="learn-card">
+            <div class="lc-num">03</div>
+            <div class="lc-t">Visual encoding beats text labels</div>
+            <div class="lc-d">Replacing "Available: Yes/No" text with a colour system let users process status at a glance — reducing cognitive load exactly when anxiety is highest.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BEHANCE PULL CTA -->
+      <div class="reveal" style="background:var(--bg);border:1px solid var(--border);border-radius:16px;padding:32px 36px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap">
+        <div>
+          <div class="sl" style="margin-bottom:8px">Full Case Study on Behance</div>
+          <div style="font-family:var(--fd);font-size:20px;font-weight:600;letter-spacing:-.02em;margin-bottom:6px">Wireframes, iterations &amp; Figma prototype</div>
+          <div style="font-size:14px;color:var(--text2)">Sketches, low-fi wireframes, Figma screens, and usability test observations — all documented on Behance.</div>
+        </div>
+        <a href="https://www.behance.net/joshiprachi200" target="_blank" class="btn-beh" style="flex-shrink:0">𝐁 View on Behance</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROCESS -->
+<section class="process-section" id="process">
+  <div class="sh reveal">
+    <div class="sl">// 02 — Design Process</div>
+    <h2 class="st">How I think</h2>
+    <p class="ss">A consistent, research-led process I apply to every project. I don't skip steps — especially not research.</p>
+  </div>
+  <div class="proc-steps reveal">
+    <div class="proc-step"><div class="proc-num">01</div><div class="proc-icon">🔍</div><div class="proc-name">Research</div><div class="proc-desc">User interviews, surveys, heuristic audits. I start with questions — not assumptions.</div><div class="proc-arts"><span class="at">Interviews</span><span class="at">Surveys</span><span class="at">Heuristics</span></div></div>
+    <div class="proc-step"><div class="proc-num">02</div><div class="proc-icon">🎯</div><div class="proc-name">Define</div><div class="proc-desc">Synthesis into problem statements, personas, and clear opportunity areas. Solving the right problem first.</div><div class="proc-arts"><span class="at">Personas</span><span class="at">Journey Map</span><span class="at">HMW</span></div></div>
+    <div class="proc-step"><div class="proc-num">03</div><div class="proc-icon">💡</div><div class="proc-name">Ideate</div><div class="proc-desc">Rapid sketching, user flows, information architecture. I explore several directions before committing.</div><div class="proc-arts"><span class="at">Sketches</span><span class="at">User Flows</span><span class="at">IA Maps</span></div></div>
+    <div class="proc-step"><div class="proc-num">04</div><div class="proc-icon">🧪</div><div class="proc-name">Test</div><div class="proc-desc">Usability testing with real users. I observe behaviour and note friction points — not just collect opinions.</div><div class="proc-arts"><span class="at">Task Tests</span><span class="at">Think-aloud</span><span class="at">Observation</span></div></div>
+    <div class="proc-step"><div class="proc-num">05</div><div class="proc-icon">🔁</div><div class="proc-name">Iterate</div><div class="proc-desc">Feedback drives refinements. Every round of testing teaches something — design is never finished.</div><div class="proc-arts"><span class="at">Revisions</span><span class="at">Feedback</span><span class="at">Handoff</span></div></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section class="about-section" id="about">
+  <div class="sh reveal">
+    <div class="sl">// 03 — About</div>
+    <h2 class="st">The designer behind the work</h2>
+  </div>
+  <div class="about-grid reveal">
+    <div class="about-text">
+      <p>I'm <strong>Prachi Joshi</strong> — a Product Designer with an MCA background who bridges <strong>technical understanding and human empathy</strong>. I care about the gap between what users say they do and what they actually do.</p>
+      <div class="about-quote">"I design products that reduce user anxiety, improve clarity, and enable confident decision-making."</div>
+      <p>At <strong>C-DAC Pune</strong>, I designed interfaces for an AI-powered healthcare QA system — learning to present complex, AI-generated information in ways non-technical users could actually trust and use. That shaped how I think about <strong>reducing cognitive load</strong> in high-stakes contexts.</p>
+      <p>My goal is to join a product team where design is a strategic lever — and build things that genuinely improve people's everyday lives.</p>
+    </div>
+    <div class="about-facts">
+      <div class="about-fact"><span class="af-icon">🎓</span><div class="af-text"><strong>MCA · Banasthali Vidyapith</strong>CGPA 7.98/10 · 2023–2025 · BCA 8.61/10</div></div>
+      <div class="about-fact"><span class="af-icon">🏛</span><div class="af-text"><strong>Project Intern · C-DAC Pune</strong>AI Healthcare QA System · NLP · BERT · Jan–May 2025</div></div>
+      <div class="about-fact"><span class="af-icon">📜</span><div class="af-text"><strong>Google UX Design Certified</strong>+ Generative AI · Python &amp; AI · Software Engineering</div></div>
+      <div class="about-fact"><span class="af-icon">🎨</span><div class="af-text"><strong>Behance Portfolio</strong>ChargeEasy · InnovateHER · Viora Brand Identity</div></div>
+      <div class="about-fact"><span class="af-icon">📍</span><div class="af-text"><strong>Based in India</strong>Open to Bangalore · Mumbai · Pune · Hyderabad · Remote</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SKILLS -->
+<section class="skills-section">
+  <div class="sh reveal">
+    <div class="sl">// 04 — Skills</div>
+    <h2 class="st">Toolkit</h2>
+    <p class="ss">The methods and tools I use — but thinking clearly about the problem is what matters most.</p>
+  </div>
+  <div class="skills-grid reveal">
+    <div class="skill-group">
+      <div class="sg-title"><span class="sg-dot" style="background:var(--accent)"></span>UX Practice</div>
+      <div class="skill-tags"><span class="skill-tag">UX Research</span><span class="skill-tag">User Flows</span><span class="skill-tag">Wireframing</span><span class="skill-tag">Usability Testing</span><span class="skill-tag">Information Architecture</span><span class="skill-tag">Design Thinking</span></div>
+    </div>
+    <div class="skill-group">
+      <div class="sg-title"><span class="sg-dot" style="background:var(--accent2)"></span>Interaction &amp; Visual</div>
+      <div class="skill-tags"><span class="skill-tag">Interaction Design</span><span class="skill-tag">Prototyping</span><span class="skill-tag">Responsive Design</span><span class="skill-tag">Visual Design</span><span class="skill-tag">Branding</span></div>
+    </div>
+    <div class="skill-group">
+      <div class="sg-title"><span class="sg-dot" style="background:var(--green)"></span>Tools</div>
+      <div class="skill-tags"><span class="skill-tag">Figma</span><span class="skill-tag">FigJam</span><span class="skill-tag">Adobe XD</span><span class="skill-tag">Photoshop</span><span class="skill-tag">Illustrator</span><span class="skill-tag">HTML / CSS</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- BEHANCE -->
+<section class="beh-section">
+  <div class="beh-inner reveal">
+    <div class="beh-badge">𝐁</div>
+    <h2 class="beh-title">More work on Behance</h2>
+    <p class="beh-sub">InnovateHER — Women in Tech responsive web platform · Viora — Luxury perfume brand identity system · Full Figma files and process documentation included.</p>
+    <a href="https://www.behance.net/joshiprachi200" target="_blank" class="btn-beh">𝐁 &nbsp;behance.net/joshiprachi200</a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="contact-inner reveal">
+    <div class="sl">// 05 — Contact</div>
+    <h2 class="contact-title">Let's build better products</h2>
+    <p class="contact-sub">Looking for a product designer who leads with empathy and explains every decision? Let's talk.</p>
+    <div class="contact-links">
+      <a href="mailto:joshiprachi200@gmail.com" class="cl cl-email">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 4h12v9H2V4zm0 0l6 5 6-5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        joshiprachi200@gmail.com
+      </a>
+      <a href="https://linkedin.com/in/prachi-joshi" target="_blank" class="cl cl-li">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M2.5 1A1.5 1.5 0 001 2.5v11A1.5 1.5 0 002.5 15h11a1.5 1.5 0 001.5-1.5v-11A1.5 1.5 0 0013.5 1h-11zm1.75 2.5a1.25 1.25 0 110 2.5 1.25 1.25 0 010-2.5zm-.75 4h1.5v5.5h-1.5V7.5zm3.5 0H8.5v.75h.02c.24-.44.83-.9 1.71-.9 1.83 0 2.17 1.2 2.17 2.77V13h-1.5v-2.5c0-.59-.01-1.35-.82-1.35-.82 0-.95.64-.95 1.3V13H6.5V7.5z"/></svg>
+        LinkedIn
+      </a>
+      <a href="https://www.behance.net/joshiprachi200" target="_blank" class="cl cl-beh">𝐁 Behance</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Prachi Joshi · Product Designer</p>
+  <div class="fl">
+    <a href="#work">Work</a>
+    <a href="#process">Process</a>
+    <a href="#about">About</a>
+    <a href="https://www.behance.net/joshiprachi200" target="_blank">Behance</a>
+  </div>
+</footer>
+
+<script>
+const cur=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function ar(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(ar)})();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.transform='translate(-50%,-50%) scale(2.5)';ring.style.width='58px';ring.style.height='58px'});
+  el.addEventListener('mouseleave',()=>{cur.style.transform='translate(-50%,-50%) scale(1)';ring.style.width='34px';ring.style.height='34px'});
+});
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible')}),{threshold:.1,rootMargin:'0px 0px -50px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+window.addEventListener('scroll',()=>{document.getElementById('nav').style.padding=window.scrollY>60?'14px 60px':'20px 60px'});
+</script>
+</body>
+</html>
